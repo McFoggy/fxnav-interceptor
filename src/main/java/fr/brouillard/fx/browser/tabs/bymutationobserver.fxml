@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.web.*?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.brouillard.fx.browser.tabs.ByMutationObserverPresenter">
+   <center>
+      <WebView fx:id="webView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+   <top>
+      <HBox spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="address" maxWidth="1.7976931348623157E308" onKeyReleased="#addresssKeyReleased" HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#homeClick" text="Home" />
+            <Button mnemonicParsing="false" onAction="#reloadClick" text="Reload" />
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox>
+               <children>
+                  <Label alignment="CENTER_RIGHT" minWidth="-Infinity" prefWidth="120.0" text="Status:" />
+                  <Label fx:id="status" maxWidth="1.7976931348623157E308">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label alignment="CENTER_RIGHT" minWidth="-Infinity" prefWidth="120.0" text="WebEngine location:" />
+                  <Label fx:id="location" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>

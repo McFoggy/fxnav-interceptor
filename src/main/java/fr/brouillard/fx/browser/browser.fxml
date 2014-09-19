@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="main" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.brouillard.fx.browser.BrowserPresenter">
+   <center>
+      <StackPane fx:id="stack" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TabPane fx:id="tabs" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab fx:id="byLocationTab" text="By Location" />
+                <Tab fx:id="byMutationMonitoringTab" text="By DOM Mutation Observer" />
+              </tabs>
+            </TabPane>
+         </children>
+      </StackPane>
+   </center>
+   <right>
+      <BorderPane fx:id="downloads" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <top>
+            <Label maxWidth="1.7976931348623157E308" minWidth="150.0" text="Downloads" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </top>
+         <bottom>
+            <TextArea prefHeight="248.0" prefWidth="200.0" text="Click links/anchors inside the webviews on the left to see downloads occuring.&#10;- Notice that only one PDF download can be done within the &quot;By Location&quot; webview tab (unless the webview location is changed/refreshed)&#10;- Notice that all PDF downloads are intercepted (including dynamic added DOM elements) in the &quot;By DOM Mutation&quot; webview tab" wrapText="true" BorderPane.alignment="CENTER" />
+         </bottom>
+      </BorderPane>
+   </right>
+</BorderPane>

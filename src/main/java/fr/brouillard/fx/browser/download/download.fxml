@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.brouillard.fx.browser.download.DownloadPresenter">
+   <children>
+      <VBox fx:id="downloads" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" minWidth="300.0" mouseTransparent="true" pickOnBounds="false" styleClass="downloads" />
+   </children>
+</Pane>

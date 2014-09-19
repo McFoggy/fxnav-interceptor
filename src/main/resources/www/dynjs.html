@@ -1,0 +1,108 @@
+<!--
+  #%L
+  navigation-interceptor
+  %%
+  Copyright (C) 2014 Matthieu Brouillard
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Dynamic</title>
+</head>
+<body>
+	<div id="log-container" style="float: right;"></div>
+	
+	<div id="content">
+		<h1>page generated at: <span id="date"></span></h1>
+	
+		<h1>Static anchors</h1>
+		<ul id="static-anchors">
+		</ul>
+	
+		<h1>Generate dynamic anchors</h1>
+	
+		<button onclick="addItem('dynamic-anchors');">Add Item</button>
+		<ul id="dynamic-anchors">
+		</ul>
+	</div>
+
+	<script type="text/javascript" src="javafx-mutation.js"></script>
+	<script type="text/javascript">
+		function setPageGenerationDate() {
+			var time = new Date().getTime();
+			document.getElementById("date").innerHTML = time;
+		}
+		
+		function addItem (domElementId) {
+			var predefinedItems = [ [ 'Google', 'http://www.google.fr' ],
+			    					[ 'Sample ONE', 'sample-one.pdf' ], [ 'Sample TWO', 'sample-two.pdf' ]  ];
+
+			var idx = (Math.floor((Math.random() * 10000)) % predefinedItems.length);
+			var li = document.createElement('li');
+			var a = document.createElement('a');
+			var linkText = document.createTextNode(predefinedItems[idx][0]);
+			li.appendChild(a);
+			a.appendChild(linkText);
+			a.title = predefinedItems[idx][0];
+			a.href = predefinedItems[idx][1];
+			document.getElementById(domElementId).appendChild(li);
+		}
+
+		setPageGenerationDate();
+		
+		for (i=0; i < 10; i++) {
+			addItem('static-anchors');
+		}
+		
+		function interceptPDFClick(evt) {
+			function endsWith(str, suffix) {
+			    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+			}
+			if (endsWith(evt.target.href, '.pdf')) {
+				window.JavaFXMutation.logger.log('intercepting PDF click');
+				evt.preventDefault();
+			}
+		};
+		
+		function parseAnchors(node, func) {
+			if (typeof node == 'undefined') {
+				return;
+			} 
+				
+			if (node && node.nodeName == 'A') {
+				func(node);
+			}
+			
+			var children = node.children;
+			if (typeof children != 'undefined') {
+				for (var i=0; i < children.length; i++) {
+					parseAnchors(children[i], func);	
+				}
+			}
+		};
+		
+		window.JavaFXMutation.domListener.nodeAdded = function(addedNode) {
+			parseAnchors(addedNode, function(n) {n.addEventListener('click', interceptPDFClick, false)});
+		};
+		window.JavaFXMutation.domListener.nodeRemoved = function(removedNode) {
+			parseAnchors(addedNode, function(n) {n.removeEventListener('click', interceptPDFClick, false)});
+		};
+		
+		window.JavaFXMutation.monitorNodeForMutation(document.getElementById('content'));
+	</script>
+</body>
+</html>
